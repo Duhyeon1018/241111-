@@ -51,7 +51,7 @@ public class ui_Kdh extends JFrame {
         add(listPanel, BorderLayout.CENTER);
 
         btnKdh1018.addActionListener(e -> btnFunc());
-        btnKdh0222.addActionListener(e -> btnFunc());
+        btnKdh0222.addActionListener(e -> btnFunckdh());
         btnPsj.addActionListener(e -> btnFuncPsj());
         btnJhj.addActionListener(e -> btnFunc());
         btnAsy.addActionListener(e -> btnFunc());
@@ -73,6 +73,21 @@ public class ui_Kdh extends JFrame {
         ArrayList<DTO_Kdh> deptList = dao.getEmpList();
         
         listModel.addElement("ALLEN 보다 급여가 높은 사원 리스트");
+        
+        for (DTO_Kdh dto : deptList) {
+            listModel.addElement(
+            		dto.getEmpno() + " | " + dto.getEname() + " | " + dto.getJob() + " | " + 
+            		dto.getMgr() + " | " + dto.getHiredate() + " | " + dto.getSal() + " | " + 
+            		dto.getComm() + " | " + dto.getDeptno()
+            		);
+        }
+    }
+    
+    public void btnFunckdh() {
+    	listModel.clear();
+        ArrayList<DTO_Kdh> deptList = dao.getEmpListkdh();
+        
+        listModel.addElement("SCOTT 이후에 입사한 직원 리스트");
         
         for (DTO_Kdh dto : deptList) {
             listModel.addElement(

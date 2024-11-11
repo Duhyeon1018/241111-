@@ -78,6 +78,35 @@ public class DAO_Kdh {
     }
     
     
+    public ArrayList<DTO_Kdh> getEmpListkdh() {
+        ArrayList<DTO_Kdh> empList = new ArrayList<>();
+
+        String sql = "SELECT * FROM emp WHERE hiredate > (SELECT hiredate from emp where ename = 'SCOTT')";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+            	int empno = rs.getInt("empno");
+	              String ename = rs.getString("ename");
+	              String job = rs.getString("job");
+	              int mgr = rs.getInt("mgr");
+	              String hiredate = rs.getString("hiredate");
+	              int sal = rs.getInt("sal");
+	              int comm = rs.getInt("comm");
+	              int deptno = rs.getInt("deptno");
+	              
+	              empList.add(new DTO_Kdh(empno, ename, job, mgr, hiredate, sal, comm, deptno));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return empList;
+    }
+    
+    
 //    public ArrayList<DTO_Kdh> getEmpList() {
 //        ArrayList<DTO_Kdh> list = new ArrayList<>();
 //
